@@ -9,10 +9,10 @@ pipeline {
 		 #aws configure set aws_access_key_id $ACCESS_KEY
 		 #aws configure set aws_secret_access_key $ACCESS_SECRET_KEY
 		 #aws configure set default.region ap-southeast-1
-		 aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 933542948767.dkr.ecr.ap-southeast-1.amazonaws.com
-		 docker build -t docker1 .
-		 docker tag docker1:latest 933542948767.dkr.ecr.ap-southeast-1.amazonaws.com/docker1:${BUILD_NUMBER}
-		 docker push 933542948767.dkr.ecr.ap-southeast-1.amazonaws.com/docker1:${BUILD_NUMBER}
+		aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 585407675451.dkr.ecr.us-east-2.amazonaws.com
+		 docker build -t dockersample .
+		 docker tag dockersample:latest 585407675451.dkr.ecr.us-east-2.amazonaws.com/dockersample:${BUILD_NUMBER} 
+		 docker push 585407675451.dkr.ecr.us-east-2.amazonaws.com/dockersample:${BUILD_NUMBER}
 		  '''
 	     }	         
 	   }
@@ -20,7 +20,7 @@ pipeline {
     stage('Deploy docker'){
       steps {
 		sh '''
-			  ssh -i /var/lib/jenkins/.ssh/publickey.pem -o StrictHostKeyChecking=no ubuntu@ec2-18-139-85-62.ap-southeast-1.compute.amazonaws.com 'bash -s' < ./deploy.sh \${BUILD_NUMBER}
+			  ssh -i /var/lib/jenkins/.ssh/Docker.pem -o StrictHostKeyChecking=no ubuntu@ec2-18-118-164-109.us-east-2.compute.amazonaws.com 'bash -s' < ./deploy.sh \${BUILD_NUMBER}
 			  '''	 
 		    
       		}
