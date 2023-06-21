@@ -8,7 +8,7 @@ pipeline {
 		 whoami
 		 #aws configure set aws_access_key_id $ACCESS_KEY
 		 #aws configure set aws_secret_access_key $ACCESS_SECRET_KEY
-		 #aws configure set default.region ap-southeast-1
+		 #aws configure set default.region us-east-2
 		aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 585407675451.dkr.ecr.us-east-2.amazonaws.com
 		 docker build -t dockersample .
 		 docker tag dockersample:latest 585407675451.dkr.ecr.us-east-2.amazonaws.com/dockersample:${BUILD_NUMBER} 
